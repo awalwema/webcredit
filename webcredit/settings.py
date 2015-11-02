@@ -17,8 +17,8 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'userfiles') #folder created for user to upload files
-MEDIA_URL = '/files/'
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media') #folder created for user to upload files
+MEDIA_URL = '/media/'
 
 
 # Quick-start development settings - unsuitable for production
@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'webcredit',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -84,6 +85,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -106,3 +109,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
