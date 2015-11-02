@@ -24,12 +24,6 @@ def index(request) :
 
 def list(request):
     # Handle file upload
-    if File.name is None:
-    	File.name = "No name inserted."
-	if File.price is None:
-		File.price = 0
-	if File.description is None:
-		File.description = "No description."
     if request.method == 'POST':
         form = FileForm(request.POST, request.FILES)
         
