@@ -59,11 +59,11 @@ urlpatterns = [
         {'template_name':
         'registration/password_reset_complete.html'},
         name="password_reset_complete"),
-    url(r'^accounts/password/change/form/$',
+    url(r'^accounts/password/change/$',
         password_change,
         {'template_name':
         'registration/password_change_form.html'},
-        name="password_change_form"),
+        name="password_change"),
     url(r'^accounts/register/$',
         MyRegistrationView.as_view(),
         name='registration_register'),

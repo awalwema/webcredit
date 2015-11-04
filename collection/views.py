@@ -13,6 +13,9 @@ from collection.forms import InfoForm
 
 from django.template.defaultfilters import slugify
 
+from django.contrib.auth.decorators import login_required
+from django.http import Http404
+
 # Create your views here.
 def index(request) :
 	files = File.objects.all()
@@ -21,6 +24,7 @@ def index(request) :
 		'files': files,
 
 		})
+
 
 def list(request):
     # Handle file upload
