@@ -1,0 +1,32 @@
+{% extends 'layouts/base.html' %}
+{% block title %}List - {{block.super}}{% endblock %}
+{% block content %}
+	<head>
+        <meta charset="utf-8">  
+    </head>
+	<body>
+    	<h2> List of uploaded files </h2>
+    {% if files %}
+        <ul>
+        {% for file in files %}
+            <li><a href="{{ file.docfile.url }}">{{ file.docfile.name }}</a><h4>Uploaded by {{file.user}}</h4></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No documents.</p>
+    {% endif %}
+
+    	<h2> Upload a file </h2>
+        <!-- Upload form. Note enctype attribute! -->
+        <form action="{% url 'list' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>{{ form.non_field_errors }}</p>
+            <p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
+            <p>
+                {{ form.docfile.errors }}
+                {{ form.docfile }}
+            </p>
+            <p><input type="submit" value="Upload" /></p>
+        </form>
+    </body>
+{% endblock %}

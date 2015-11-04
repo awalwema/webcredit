@@ -1,0 +1,16 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Homepage - {{block.super}}{% endblock %}
+{% block content %}
+	{% for file in files %}
+	<h2>{{ file.name}}</h2>
+	<p> 
+		{{ file.description }}
+	</p>
+	<p>	
+		{{ file.price }}
+	</p>
+	<p>
+		{{ file.docfile }}
+	</p>
+	{% endfor %}
+{% endblock %}
