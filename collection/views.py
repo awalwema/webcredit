@@ -19,7 +19,6 @@ from django.http import Http404
 # Create your views here.
 def index(request) :
 	files = File.objects.all()
-
 	return render(request, 'index.html', {
 		'files': files,
 
