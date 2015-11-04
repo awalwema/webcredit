@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
-#this is a comment
 class File(models.Model):
 	"""This holds a single user uploaded file"""
 	name = models.CharField(max_length=255)
