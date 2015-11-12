@@ -1,5 +1,4 @@
 """webcredit URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.8/topics/http/urls/
 Examples:
@@ -28,14 +27,15 @@ from django.contrib.auth.views import(
     )
 
 urlpatterns = [
-	url(r'^$', views.index, name='home'),
-	url(r'^about/$',
-		TemplateView.as_view(template_name='about.html'),
-		name = 'about'),
-	url(r'^contact/$',
-		TemplateView.as_view(template_name='contact.html'),
-		name = 'contact'),
+    url(r'^$', views.index, name='home'),
+    url(r'^about/$',
+        TemplateView.as_view(template_name='about.html'),
+        name = 'about'),
+    url(r'^contact/$',
+        TemplateView.as_view(template_name='contact.html'),
+        name = 'contact'),
     url(r'^list/$', views.list, name='list'),
+    url(r'^create-file/$', views.create_file, name='create_file'),
     url(r'^accounts/',
         include('registration.backends.simple.urls')),
 #the new password reset URLs

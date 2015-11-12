@@ -16,8 +16,8 @@
         <p>No documents.</p>
     {% endif %}
 
-    	<h2> Upload a file </h2>
-        <!-- Upload form. Note enctype attribute! -->
+    	<h2> <a href="{% url 'create_file' %}">Upload A File </a></h2>
+        <!-- Upload form.  -->
         <form action="{% url 'list' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <p>{{ form.non_field_errors }}</p>

@@ -1,0 +1,21 @@
+{% extends 'layouts/base.html' %}
+{% block title %}
+	Upload a File - {{ block.super}}{% endblock %}
+{% block content %}
+<h1>Upload a File</h1>
+<form role="form" action="" method="post", >
+	{% csrf_token %}
+	{{ form.as_p }}
+	<button type="submit">Submit</button>
+</form>
+<!--<form action="{% url 'list' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>{{ form.non_field_errors }}</p>
+            <p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
+            <p>
+                {{ form.docfile.errors }}
+                {{ form.docfile }}
+            </p>
+            <p></p>
+        </form>-->
+{% endblock %}

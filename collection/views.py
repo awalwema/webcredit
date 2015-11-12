@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from collection.models import File
 from collection.forms import FileForm
-from collection.forms import InfoForm
+from collection.forms import FileFieldForm
 
 from django.template.defaultfilters import slugify
 
@@ -37,7 +37,7 @@ def list(request):
             # Redirect to the file list after POST
             return HttpResponseRedirect(reverse('webcredit.views.list'))
     else:
-        form = InfoForm() # A empty, unbound form
+        form = FileForm() # A empty, unbound form
 
     # Load files for the list page
     files = File.objects.all()
@@ -48,3 +48,32 @@ def list(request):
         {'files': files, 'form': form},
         context_instance=RequestContext(request)
         )
+
+def create_file(request):
+        #if we're coming from a submitted form, do this
+    if request.method == 'POST':
+        #grab the data from the submitted form and apply to the form
+        form = FileFieldForm(request.POST, request.FILES)
+        if form.is_valid():
+            newFile = File(request.POST, docfile = request.FILES['docfile'])
+
+            #set the aadditional details
+            newFile.user = request.user
+            newFile.slug = slugify(form.cleaned_data['name'])
+            newFile.description = form.cleaned_data['description'])
+            newFile.price = form.cleaned_data['price']
+
+            #save the object
+            newFile.save()
+            #redirect to our newly created file
+            return HttpResponseRedirect(reverse('webcredit.views.list'))
+
+    #otherwise just create the form
+    else:
+        form = FileFieldForm()
+
+
+    # Render list page with the files and the form
+    return render(request, 'Files/create_file.html', {
+        'form':form,
+        })
