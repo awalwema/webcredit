@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 
 from django.shortcuts import render
 from collection.models import File
@@ -35,7 +36,7 @@ def list(request):
             newdoc.save()
 
             # Redirect to the file list after POST
-            return HttpResponseRedirect(reverse('webcredit.views.list'))
+            return HttpResponseRedirect('webcredit.views.list')
     else:
         form = FileForm() # A empty, unbound form
 
@@ -53,20 +54,18 @@ def create_file(request):
         #if we're coming from a submitted form, do this
     if request.method == 'POST':
         #grab the data from the submitted form and apply to the form
-        form = FileFieldForm(request.POST, request.FILES)
+        form = FileFieldForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
-            newFile = File(request.POST, docfile = request.FILES['docfile'])
-
-            #set the aadditional details
-            newFile.user = request.user
-            newFile.slug = slugify(form.cleaned_data['name'])
-            newFile.description = form.cleaned_data['description'])
-            newFile.price = form.cleaned_data['price']
+            newFile = File(docfile = request.FILES['docfile'])
+            #set the additional details
+            newFile.slug = slugify(request.POST.get('name'))
+            newFile.description = request.POST.get('description')
+            newFile.price = request.POST.get('price')
 
             #save the object
             newFile.save()
             #redirect to our newly created file
-            return HttpResponseRedirect(reverse('webcredit.views.list'))
+            return HttpResponseRedirect(reverse('list'))
 
     #otherwise just create the form
     else:
