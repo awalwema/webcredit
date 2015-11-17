@@ -56,8 +56,11 @@ def create_file(request):
         #grab the data from the submitted form and apply to the form
         form = FileFieldForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
-            newFile = File(docfile = request.FILES['docfile'])
+            myFile = request.FILES['docfile']
             #set the additional details
+            newFile = File()
+            newFile.name = request.POST.get('name')
+            newFile.docfile = myFile
             newFile.slug = slugify(request.POST.get('name'))
             newFile.description = request.POST.get('description')
             newFile.price = request.POST.get('price')
@@ -69,7 +72,7 @@ def create_file(request):
 
     #otherwise just create the form
     else:
-        form = FileFieldForm()
+        form = FileFieldForm(user=request.user)
 
 
     # Render list page with the files and the form

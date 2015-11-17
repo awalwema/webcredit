@@ -18,11 +18,6 @@ class FileFieldForm(ModelForm, forms.Form):
 	docfile = forms.FileField(
 	        label='Select a file',
 	        help_text='max 42 megabytes',)
-	def save(self, force_insert=False, force_update=False, commit=True):
-		instance = super(FileFieldForm, self).save(commit=False)
-		if self.user:
-			instance.user = self.user
-		return instance.save()
 
 
 	
