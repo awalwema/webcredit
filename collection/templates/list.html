@@ -9,7 +9,7 @@
     {% if files %}
         <ul>
         {% for file in files %}
-            <li><a href="{{ file.docfile.url }}">{{ file.docfile.name }}</a><h4>Uploaded by {{file.user}}</h4></li>
+            <li><a href="{{ MEDIA_URL }}{{ file.docfile.url }}">{{ file.name }}</a><h4>Uploaded by {{file.user}}</h4></li>
         {% endfor %}
         </ul>
     {% else %}

@@ -35,6 +35,7 @@ urlpatterns = [
         TemplateView.as_view(template_name='contact.html'),
         name = 'contact'),
     url(r'^list/$', views.list, name='list'),
+    #url(r'^media/files/$', views.list, name='list'),
     url(r'^create-file/$', views.create_file, name='create_file'),
     url(r'^accounts/',
         include('registration.backends.simple.urls')),

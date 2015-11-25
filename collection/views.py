@@ -6,6 +6,7 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from collection.models import Wallet
 
 from django.shortcuts import render
 from collection.models import File
@@ -54,16 +55,22 @@ def create_file(request):
         #if we're coming from a submitted form, do this
     if request.method == 'POST':
         #grab the data from the submitted form and apply to the form
-        form = FileFieldForm(request.POST, request.FILES, user=request.user)
+        form = FileFieldForm(request.user, request.POST, request.FILES)
         if form.is_valid():
             myFile = request.FILES['docfile']
             #set the additional details
             newFile = File()
+            newFile.user = request.user
             newFile.name = request.POST.get('name')
             newFile.docfile = myFile
             newFile.slug = slugify(request.POST.get('name'))
             newFile.description = request.POST.get('description')
             newFile.price = request.POST.get('price')
+            user = request.user
+            balance = Wallet()
+            balance.user = request.user
+            balance.balance = balance.balance + 50
+            #user.wallet.balance = user.wallet.balance + 50
 
             #save the object
             newFile.save()
@@ -72,7 +79,7 @@ def create_file(request):
 
     #otherwise just create the form
     else:
-        form = FileFieldForm(user=request.user)
+        form = FileFieldForm(request.user)
 
 
     # Render list page with the files and the form
