@@ -122,4 +122,7 @@ EMAIL_PORT = 1025
 
 LOGIN_REDIRECT_URL = "home"
 
+AUTH_PROFILE_MODULE = 'webcredit.UserProfile'
+
+
 
