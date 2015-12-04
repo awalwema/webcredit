@@ -2,15 +2,12 @@
 {% block title %}Homepage - {{block.super}}{% endblock %}
 {% block content %}
 	{% for file in files %}
-	<h2>{{ file.name}}</h2>
+	<h3>Upload: {{ file.name}}</h3>
 	<p> 
-		{{ file.description }}
+		Description: {{ file.description }}
 	</p>
 	<p>	
-		{{ file.price }}
-	</p>
-	<p>
-		{{ file.docfile }}
+		Price: {{ file.price }} points
 	</p>
 	{% endfor %}
 {% endblock %}

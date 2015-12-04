@@ -4,18 +4,12 @@ from django.contrib.auth.models import User
 # Create your models here.
 class UserProfile(models.Model):
 	user = models.OneToOneField(User, unique=True, default = 'john')
-	firstname = models.CharField(max_length=40, default = 'john')
-	lastname = models.CharField(max_length=50, default = 'doe')
-	email = models.EmailField(default = 'johndoe@gmail.com')
+	first_name = models.CharField(max_length=40, default = 'john')
+	last_name = models.CharField(max_length=50, default = 'doe')
 	balance = models.DecimalField(max_digits=7,decimal_places=2, default = 100)
 
 	def __str__(self):
 		return "%s's profile" % self.user  
-
-	# User
-	def create_user_profile(sender, instance, created, **kwargs):
-		if created:
-			profile, created = UserProfile.objects.get_or_create(user=instance)  
 
 	def __unicode__(self):
 		return unicode(self.user.username)
@@ -37,6 +31,6 @@ class Transaction(models.Model):
 		self.user.balance = self.user.balance + self.amount
 		super(Transaction, self).save(*args, **kwargs)
 		self.user.save()
-		
+
 
 

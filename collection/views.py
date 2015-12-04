@@ -6,11 +6,14 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 
 from django.shortcuts import render
 from collection.models import File
+from collection.models import UserProfile
 from collection.models import Transaction
 from collection.forms import FileFieldForm
+from collection.forms import ProfileForm
 
 from django.template.defaultfilters import slugify
 
@@ -76,5 +79,31 @@ def create_file(request):
         'form':form,
         })
 
+def create_user_profile(request):
+    if request.method == 'POST':
+        
+        form = ProfileForm(request.user,request.POST)
+        if form.is_valid():
+            firstname = request.POST.get('first_name')
+            lastname = request.POST.get('last_name')
+            newProfile = UserProfile()
+            newProfile.user = request.user
+            newProfile.first_name = firstname
+            newProfile.last_name = lastname
+            newProfile.balance = 100
+
+            #save the object
+            newProfile.save()
+            #redirect to our newly created file
+            return HttpResponseRedirect(reverse('home'))
+
+    else:
+        form = ProfileForm(request.user)
+
+    
+
+    return render(request, 'Files/create_user_profile.html', {
+        'form':form,
+        })
 
 

@@ -35,10 +35,12 @@ urlpatterns = [
         TemplateView.as_view(template_name='contact.html'),
         name = 'contact'),
     url(r'^list/$', views.list, name='list'),
+     url(r'^accounts/create-user-profile/$', views.create_user_profile, name='create_user_profile'),
     #url(r'^media/files/$', views.list, name='list'),
-    url(r'^create-file/$', views.create_file, name='create_file'),
+    url(r'^accounts/create-file/$', views.create_file, name='create_file'),
     url(r'^accounts/',
         include('registration.backends.simple.urls')),
+
 #the new password reset URLs
     url(r'^accounts/password/reset/$',
         password_reset,
@@ -68,6 +70,7 @@ urlpatterns = [
     url(r'^accounts/register/$',
         MyRegistrationView.as_view(),
         name='registration_register'),
+
 
     url(r'^accounts/',
         include('registration.backends.simple.urls')),

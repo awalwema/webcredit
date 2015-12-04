@@ -16,7 +16,7 @@
 			<h1> Data Exchange Site</h1>
 					{% if user.is_authenticated %}
 					
-						<h3>Welcome: {{user.userprofile.firstname}}</h3>
+						<h3>Welcome: {{user.userprofile.first_name}}</h3>
 							{% if user.userprofile.balance > 0 %}
 						<h4>Your current balance is: {{user.userprofile.balance}} points</h4>
 						{% else %}
