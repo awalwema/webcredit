@@ -1,0 +1,6 @@
+{% extends 'layouts/base.html' %}
+{% block title %}About - {{block.super}}{% endblock %}
+{% block content %}
+	<h1>Download page</h1>
+	<a href="file:///{{ django_file.url }}">download</a>
+{% endblock %}

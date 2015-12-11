@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from collection import views
 from collection.backends import MyRegistrationView
+from django.conf import settings
+from django.conf.urls.static import static
 
 from django.contrib.auth.views import(
     password_reset,
@@ -40,6 +42,9 @@ urlpatterns = [
     url(r'^accounts/create-file/$', views.create_file, name='create_file'),
     url(r'^accounts/',
         include('registration.backends.simple.urls')),
+    url(r'^accounts/^media\/(?P<path>.*)$', TemplateView.as_view(template_name ='public_download_url')),
+    url(r'^accounts/download/(?P<slug_id>\w+)$', views.file_download, name='file_download'),
+    url(r'^download-page/(?P<slug_id>\w+)$', views.download_page, name='download_page'),
 
 #the new password reset URLs
     url(r'^accounts/password/reset/$',
@@ -77,4 +82,16 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+'''if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+            'document_root': settings.MEDIA_ROOT,
+            }),
+        )'''
+
+'''if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^media/(?P<slug>.*)/download/$', views.file_download, name='file_download'),
+        )'''

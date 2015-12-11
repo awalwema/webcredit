@@ -1,12 +1,22 @@
 {% extends 'layouts/base.html' %}
-{% block title %}About - {{block.super}}{% endblock %}
+{% block title %}Download {{myfile.name}} - {{block.super}}{% endblock %}
 {% block content %}
-	<h1>About page</h1>
-	<p>
+	<body>
+    	<h2> {{myfile.name}}'s info: </h2>
+    	<h3> Description:</h3>
+    		<p>{{myfile.description}}</p>
+    	<h3>Price: </h3> {{myfile.price}}
+    	<h3>Uploaded by:</h3> {{myfile.user}}
+    	<h3>Download</h3>
+    {% if user.userprofile.balance < myfile.price %}
 
-The goal of this website is to implement a proof of concept program that simulates 
-the sharing of data to a community of users using a virtual currency. 
-In summary the user is designed to have a wallet, that holds their virtual 
-balance and can have multiple files that can be
-downloaded by other users (work in progress.)</p>
+    	<button <a href="{% url 'file_download' myfile.slug %}">You do not have sufficient funds to download this file </button></a>
+    {% else %}
+				<form action="{% url 'file_download' myfile.slug %}">
+    	<input type="submit" value="Download: {{myfile.slug}}">
+    </form>
+	{% endif %}
+    
+
+    </body>
 {% endblock %}

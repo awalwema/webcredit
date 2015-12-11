@@ -2,14 +2,16 @@
 {% block title %}List - {{block.super}}{% endblock %}
 {% block content %}
 	<head>
-        <meta charset="utf-8">  
+        
     </head>
 	<body>
     	<h2> List of Uploaded Files </h2>
     {% if files %}
+    {% load staticfiles %}
         <ul>
         {% for file in files %}
-            <li><a href="{{ MEDIA_URL }}{{ file.docfile.url }}">{{ file.name }}</a><h4>Uploaded by {{file.user}}</h4></li>
+            <a href="{% url 'download_page' file.slug %}">{{ file.name }}</a>
+            <h4>Uploaded by {{file.user}}</h4>
         {% endfor %}
         </ul>
     {% else %}

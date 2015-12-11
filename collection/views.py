@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from django.http import HttpResponse
 
 from django.shortcuts import render
 from collection.models import File
@@ -105,5 +106,18 @@ def create_user_profile(request):
     return render(request, 'Files/create_user_profile.html', {
         'form':form,
         })
+
+def file_download(request, slug_id):
+    myfile = File.objects.get(slug=slug_id)
+    fsock = open('/home/juicebox/projects/webcredit/media/'+str(myfile.docfile), 'r')
+    response = HttpResponse(fsock, content_type='text/plain')
+    response['Content-Disposition'] = "attachment; filename=%s" % \
+                                    (myfile.name)
+    return response
+
+def download_page(request, slug_id):
+    myfile = File.objects.get(slug=slug_id)
+    return render_to_response('public_download_url.html', {'myfile':myfile}, context_instance=RequestContext(request))
+
 
 
