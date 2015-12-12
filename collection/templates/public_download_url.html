@@ -1,11 +1,12 @@
 {% extends 'layouts/base.html' %}
+{% load humanize %}
 {% block title %}Download {{myfile.name}} - {{block.super}}{% endblock %}
 {% block content %}
 	<body>
     	<h2> {{myfile.name}}'s info: </h2>
     	<h3> Description:</h3>
     		<p>{{myfile.description}}</p>
-    	<h3>Price: </h3> {{myfile.price}}
+    	<h3>Price: </h3> {{myfile.price|intcomma}}
     	<h3>Uploaded by:</h3> {{myfile.user}}
     	<h3>Download</h3>
     {% if user.userprofile.balance < myfile.price %}
@@ -13,7 +14,7 @@
     	<button <a href="{% url 'file_download' myfile.slug %}">You do not have sufficient funds to download this file </button></a>
     {% else %}
 				<form action="{% url 'file_download' myfile.slug %}">
-    	<input type="submit" value="Download: {{myfile.slug}}">
+    	<input type="submit" value="Download: {{myfile.name}}">
     </form>
 	{% endif %}
     

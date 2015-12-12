@@ -8,6 +8,8 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.http import HttpResponse
+import random
+import string
 
 from django.shortcuts import render
 from collection.models import File
@@ -54,7 +56,11 @@ def create_file(request):
             newFile.user = request.user.userprofile
             newFile.name = request.POST.get('name')
             newFile.docfile = myFile
-            newFile.slug = slugify(request.POST.get('name'))
+
+            pre_slug = slugify(newFile.name)
+            N = 5
+            pre_slug = pre_slug.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits+ string.hexdigits) for _ in range(N))
+            newFile.slug = pre_slug.replace("-", "")
             newFile.description = request.POST.get('description')
             newFile.price = request.POST.get('price')
             transaction = Transaction()
@@ -110,9 +116,21 @@ def create_user_profile(request):
 def file_download(request, slug_id):
     myfile = File.objects.get(slug=slug_id)
     fsock = open('/home/juicebox/projects/webcredit/media/'+str(myfile.docfile), 'r')
+
+    transaction = Transaction()
+    transaction.user = myfile.user
+    transaction.amount = (myfile.price)
+    transaction.save()
+
+
+    transaction.user = request.user.userprofile
+    transaction.amount = -(myfile.price)
+    transaction.save()
+
     response = HttpResponse(fsock, content_type='text/plain')
     response['Content-Disposition'] = "attachment; filename=%s" % \
                                     (myfile.name)
+
     return response
 
 def download_page(request, slug_id):

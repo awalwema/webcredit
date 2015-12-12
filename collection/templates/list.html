@@ -6,11 +6,14 @@
     </head>
 	<body>
     	<h2> List of Uploaded Files </h2>
+
+        <h3> <a href="{% url 'create_file' %}">Upload A File </a></h3>
+        
     {% if files %}
     {% load staticfiles %}
         <ul>
         {% for file in files %}
-            <a href="{% url 'download_page' file.slug %}">{{ file.name }}</a>
+            {{forloop.counter}} <a href="{% url 'download_page' file.slug %}"> {{ file.name }}</a>
             <h4>Uploaded by {{file.user}}</h4>
         {% endfor %}
         </ul>
@@ -18,7 +21,7 @@
         <p>No documents.</p>
     {% endif %}
 
-    	<h3> <a href="{% url 'create_file' %}">Upload A File </a></h3>
+    	
 
     </body>
 {% endblock %}

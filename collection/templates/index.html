@@ -1,13 +1,10 @@
 {% extends 'layouts/base.html' %}
+{% load humanize %}
 {% block title %}Homepage - {{block.super}}{% endblock %}
 {% block content %}
 	{% for file in files %}
-	<h3>Upload: {{ file.name}}</h3>
-	<p> 
-		Description: {{ file.description }}
-	</p>
-	<p>	
-		Price: {{ file.price }} points
-	</p>
+	
+
 	{% endfor %}
+	<h3>Number of current files uploaded: {{files.count}}</h3>
 {% endblock %}
