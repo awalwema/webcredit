@@ -60,8 +60,7 @@ def create_file(request):
             pre_slug = slugify(newFile.name)
             N = 5
             pre_slug = pre_slug.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits+ string.hexdigits) for _ in range(N))
-            slug = (pre_slug[:40] + '..') if len(pre_slug) > 40 else data
-            newFile.slug = slug.replace("-", "")
+            newFile.slug = pre_slug.replace("-", "")
             newFile.description = request.POST.get('description')
             newFile.price = request.POST.get('price')
             transaction = Transaction()
