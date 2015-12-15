@@ -1,10 +1,11 @@
 {% extends 'layouts/base.html' %}
 {% load humanize %}
 {% block title %}Homepage - {{block.super}}{% endblock %}
+{% include "templates/home.html" with active='home' %}
 {% block content %}
 	{% for file in files %}
 	
 
 	{% endfor %}
-	<h3>Number of current files uploaded: {{files.count}}</h3>
+	<h3>Number of available files uploaded: {{files.count}}</h3>
 {% endblock %}

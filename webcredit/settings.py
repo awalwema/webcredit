@@ -110,7 +110,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
+ROOT_PATH = os.path.dirname(__file__)
+STATIC_ROOT = os.path.join(ROOT_PATH, 'static')
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(ROOT_PATH, 'static'),
+)
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
@@ -126,7 +132,7 @@ LOGIN_REDIRECT_URL = "home"
 AUTH_PROFILE_MODULE = 'webcredit.UserProfile'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "collection/static"),
     '/home/juicebox/projects/webcredit/media/files/',
 ]
 

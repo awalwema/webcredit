@@ -11,11 +11,9 @@
     	<h3>Download</h3>
     {% if user.userprofile.balance < myfile.price %}
 
-    	<button <a href="{% url 'file_download' myfile.slug %}">You do not have sufficient funds to download this file </button></a>
+    	<button <a href="{% url 'file_download' myfile.slug %}" class="btn btn-lg btn-danger">You do not have sufficient funds to download this file </button></a>
     {% else %}
-				<form action="{% url 'file_download' myfile.slug %}">
-    	<input type="submit" value="Download: {{myfile.name}}">
-    </form>
+				<a href="{% url 'file_download' myfile.slug %}" class="btn btn-lg btn-primary">Download: {{myfile.name}}</a>
 	{% endif %}
     
 

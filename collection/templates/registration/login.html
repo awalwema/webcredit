@@ -1,15 +1,22 @@
 {% extends 'layouts/base.html' %}
+
+
 {% block title %}Login - {{ block.super }}{% endblock %}
 {% block content %}
-<h1>Login</h1>
-<form role ="form" action="" method="post">
+
+
+
+<form class="form-signin" action="" method="post">
+	<h2 class="form-signin-heading">Please sign in</h2>
 	{% csrf_token %}
 	{{ form.as_p }}
 	<input type="submit" value="Submit" />
-</form>
-<p>
+
+	<label>
 	<a href="{% url 'password_reset' %}">
 	Forgot your password?
 	</a>
-</p>
+</label>
+</form>
+
 {% endblock %}

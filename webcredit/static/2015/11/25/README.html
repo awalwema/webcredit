@@ -1,0 +1,74 @@
+<div class="announce instapaper_body md" data-path="README.md" id="file"><article class="markdown-body entry-content" itemprop="mainContentOfPage"><h1>
+<a id="user-content-juice-box" class="anchor" href="#juice-box" aria-hidden="true"><span class="octicon octicon-link"></span></a>Juice Box</h1>
+
+<p>A virtual machine designed for programming workshops.</p>
+
+<p><a href="https://cloud.githubusercontent.com/assets/83319/6881507/2d79b776-d538-11e4-853a-f4390f324042.png" target="_blank"><img src="https://cloud.githubusercontent.com/assets/83319/6881507/2d79b776-d538-11e4-853a-f4390f324042.png" alt="screenshot" style="max-width:100%;"></a></p>
+
+<p>Based on <a href="https://github.com/boxcutter/ubuntu">boxcutter/ubuntu</a>.</p>
+
+<h2>
+<a id="user-content-reason" class="anchor" href="#reason" aria-hidden="true"><span class="octicon octicon-link"></span></a>Reason</h2>
+
+<p>Technical workshops shouldn't be about installing a development environment in Linux, Windows, OS X, or whatever else. Unless that's what they are about, this takes way too much time from everyone and it's a pain.</p>
+
+<h2>
+<a id="user-content-specs" class="anchor" href="#specs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Specs</h2>
+
+<p>This project includes two <a href="https://packer.io/">Packer</a> templates:</p>
+
+<ul>
+<li>server.json - No desktop environment.</li>
+<li>desktop.json - Xubuntu desktop environment.</li>
+</ul>
+
+<p>Both of them build a virtual machine based on <code>Ubuntu Server 14.04</code> with the the following software installed:</p>
+
+<ul>
+<li><a href="https://github.com/jpadilla/dev-box/blob/master/scripts/provisioning/git.sh">Git</a></li>
+<li><a href="https://github.com/jpadilla/dev-box/blob/master/scripts/provisioning/python.sh">Python 3.4 with pyenv</a></li>
+<li><a href="https://github.com/jpadilla/dev-box/blob/master/scripts/provisioning/iojs.sh">io.js with nvm</a></li>
+<li><a href="https://github.com/jpadilla/dev-box/blob/master/scripts/provisioning/ruby.sh">Ruby 2.1 with RVM</a></li>
+<li><a href="https://github.com/jpadilla/dev-box/blob/master/scripts/provisioning/mongodb.sh">MongoDB</a></li>
+<li><a href="https://github.com/jpadilla/dev-box/blob/master/scripts/provisioning/redis.sh">Redis</a></li>
+<li><a href="https://github.com/jpadilla/dev-box/blob/master/scripts/provisioning/postgresql.sh">PostgreSQL</a></li>
+<li><a href="https://github.com/jpadilla/dev-box/blob/master/scripts/provisioning/docker.sh">Docker</a></li>
+</ul>
+
+<p>Desktop version has the following installed:</p>
+
+<ul>
+<li><a href="https://github.com/jpadilla/juicebox/blob/master/scripts/provisioning/sublime-text-3.sh">Sublime Text 3</a></li>
+<li><a href="https://github.com/jpadilla/juicebox/blob/master/scripts/provisioning/google-chrome.sh">Google Chrome</a></li>
+<li><a href="https://github.com/jpadilla/juicebox/blob/master/scripts/provisioning/firefox.sh">Firefox</a></li>
+</ul>
+
+<h2>
+<a id="user-content-distributing" class="anchor" href="#distributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Distributing</h2>
+
+<p>I'll be building OVA files and Vagrant boxes for each version and hosting them.</p>
+
+<h2>
+<a id="user-content-building-and-uploading" class="anchor" href="#building-and-uploading" aria-hidden="true"><span class="octicon octicon-link"></span></a>Building and Uploading</h2>
+
+<p>Requirements:</p>
+
+<ul>
+<li><a href="https://packer.io/">Packer</a></li>
+<li><a href="http://s3tools.org/s3cmd">S3cmd</a></li>
+</ul>
+
+<h3>
+<a id="user-content-server" class="anchor" href="#server" aria-hidden="true"><span class="octicon octicon-link"></span></a>Server</h3>
+
+<pre><code>$ make server
+$ AWS_ACCESS_KEY_ID='' AWS_SECRET_ACCESS_KEY='' make upload/server
+</code></pre>
+
+<h3>
+<a id="user-content-desktop" class="anchor" href="#desktop" aria-hidden="true"><span class="octicon octicon-link"></span></a>Desktop</h3>
+
+<pre><code>$ make desktop
+$ AWS_ACCESS_KEY_ID='' AWS_SECRET_ACCESS_KEY='' make upload/desktop
+</code></pre>
+</article></div>
