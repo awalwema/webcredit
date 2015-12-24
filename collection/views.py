@@ -8,8 +8,6 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.http import HttpResponse
-import random
-import string
 
 from django.shortcuts import render
 from collection.models import File
@@ -56,10 +54,7 @@ def create_file(request):
             newFile.user = request.user.userprofile
             newFile.name = request.POST.get('name')
             newFile.docfile = myFile
-
             pre_slug = slugify(newFile.name)
-            N = 5
-            pre_slug = pre_slug.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits+ string.hexdigits) for _ in range(N))
             newFile.slug = pre_slug.replace("-", "")
             newFile.description = request.POST.get('description')
             newFile.price = request.POST.get('price')
